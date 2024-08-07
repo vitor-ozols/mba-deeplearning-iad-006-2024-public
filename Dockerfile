@@ -1,20 +1,20 @@
-# Use an official Python image as the base
+# Use a imagem base do Python
 FROM python:3.9-slim
 
-# Set the working directory to /app
+# Defina o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt .
+# Copie os arquivos necessários para o diretório de trabalho
+COPY . /app
 
-# Install the dependencies
+# Instale as dependências necessárias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY . /app/
+# Exponha a porta que o Flask usará
+EXPOSE 5000
 
-# Expose the port
-EXPOSE 8000
+# Defina a variável de ambiente para o Flask
+ENV FLASK_APP=app.py
 
-# Run the command to start the development server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Comando para iniciar a aplicação
+CMD ["flask", "run", "--host=0.0.0.0"]
