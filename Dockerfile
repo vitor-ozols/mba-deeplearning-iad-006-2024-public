@@ -1,20 +1,15 @@
-# Use a imagem base do Python
 FROM python:3.9-slim
 
-# Defina o diretório de trabalho dentro do container
-WORKDIR /app
+WORKDIR /
 
-# Copie os arquivos necessários para o diretório de trabalho
-COPY . /app
+COPY . /
 
-# Instale as dependências necessárias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Exponha a porta que o Flask usará
-EXPOSE 5000
+EXPOSE 8080
 
-# Defina a variável de ambiente para o Flask
 ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
 
-# Comando para iniciar a aplicação
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Especificar a porta 8080 no comando do Flask
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
